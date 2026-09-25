@@ -1,0 +1,98 @@
+{
+  "_version": "1.89.0",
+  "sap.app": {
+    "id": "fiori.y2026.sapfioritraining2026",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.32.0",
+      "toolsId": "e5630de5-8683-4160-b381-9d1d130d50ff"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.152.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "fiori.y2026.sapfioritraining2026.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "fiori.y2026.sapfioritraining2026.view",
+        "async": true,
+        "viewPath": "fiori.y2026.sapfioritraining2026.view"
+      },
+      "routes": [
+        {
+          "name": "RouteLandingView",
+          "pattern": ":?query:",
+          "target": [
+            "TargetLandingView"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetLandingView": {
+          "id": "LandingView",
+          "name": "LandingView"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "fiori.y2026.sapfioritraining2026.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}
