@@ -2,5 +2,26 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
+    <Panel id="baseComponentsPanel" expandable="true" expanded="true" headerText="{i18n>baseComponentsPanelHeader}">
+        <HBox id="baseComponentsPanelHBox1" alignItems="Center" width="100%">
+            <Text id="baseComponentsPanelText1" width="50%" class="sapUIMediumMarginEnd" text="{i18n>ExampleText}"/>
+            <VBox id="VBox1" height="100%">
+            <Button id= "baseComponentsPanelButtonToast" 
+                    text="{i18n>ToastButtonText}" 
+                    press="onToastButtonPress" 
+                    type="Emphasized" icon="sap-icon://addresses"
+                    />
+                    <Button id ="MessageBoxButton" class="sapUiSmallMarginBegin"
+                    text="{i18n>MessageBoxButtonText}"
+                    press="onMessageBoxButtonPress"
+                    tooltip="{i18n>MessageBoxButtonTooltip}"
+                    />
+                    <HBox id="HBStepInput" class="baseComponentsPanelButtonToast" alignContent="Start" alignItems="Center">
+                    <StepInput id="StepInputTest" change="onStepInputChange" min="0" max="10" description="Step Input"></StepInput>
+                    <Text id="stepInputDescr" text="{i18n>StepInputDescription}" ></Text>
+                    </HBox>
+            </VBox>
+        </HBox>
+    </Panel>
     </Page>
 </mvc:View>

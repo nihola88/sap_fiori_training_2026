@@ -3,11 +3,5 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <App id="app">
-    <Panel id="baseComponentsPanel" expandable="true" expanded="true" headerText="{i18n>baseComponentsPanelHeader}">
-        <HBox id="baseComponentsPanelHBox1" alignItems="Center">
-            <Text id="baseComponentsPanelText1" class="sapUIMediumMarginEnd" text="{i18n>ExampleText}"/>
-            <Button id= "baseComponentsPanelButtonToast" text="{i18n>ToastButtonText}" press="onToastButtonPress" type="Emphasized"/>
-        </HBox>
-    </Panel>
     </App>
 </mvc:View>
