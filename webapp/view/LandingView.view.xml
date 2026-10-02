@@ -16,12 +16,33 @@
                     press="onMessageBoxButtonPress"
                     tooltip="{i18n>MessageBoxButtonTooltip}"
                     />
-                    <HBox id="HBStepInput" class="baseComponentsPanelButtonToast" alignContent="Start" alignItems="Center">
-                    <StepInput id="StepInputTest" change="onStepInputChange" min="0" max="10" description="Step Input"></StepInput>
-                    <Text id="stepInputDescr" text="{i18n>StepInputDescription}" ></Text>
+                    <HBox id="HBStepInput" class="baseComponentsPanelButtonToast" alignContent="Start" alignItems="Center" width="100%">
+                        <StepInput id="StepInputTest" change="onStepInputChange" min="0" max="10" description="Step Input"></StepInput>
+                        <Text id="stepInputDescr" text="{i18n>StepInputDescription}" ></Text>
                     </HBox>
             </VBox>
         </HBox>
+        <Table id="tab1" items="{myModel>/}" class="sapUiResponsiveMargin" inset="false" width="100%"
+            headerText="HeaderTest" swipeDirection="LeftToRight"
+        >
+            <columns>
+                <Column id="col1">
+                    <Text id="Field1" text="Var1Head"></Text>
+                </Column>
+                <Column id="col2">
+                    <Text id="Field2" text="Var2"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem id="colListTab1">
+                    <cells>
+                        <Text id="textField1" text="{myModel>var1}"/>
+                        <Text id="textField2" text="{myModel>var2}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+
+        </Table>
     </Panel>
     </Page>
 </mvc:View>

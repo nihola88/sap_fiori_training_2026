@@ -7,7 +7,16 @@ sap.ui.define([
 
     return Controller.extend("fiori.y2026.sapfioritraining2026.controller.LandingView", {
         onInit() {
-            
+            let vModel = [
+                { var1: "value1", var2: "value2" },
+                { var1: "value3", var2: "value4" },
+                { var1: "value5", var2: "value6" }
+            ];
+            let oModel = new sap.ui.model.json.JSONModel(vModel);
+            this.getView().setModel(oModel, "myModel");
+            vModel = { name: "TestName1" };
+            oModel = new sap.ui.model.json.JSONModel(vModel);
+            this.getView().setModel(oModel);
         },
         onAfterRendering (){
             Controller.oBundle = this.getView().getModel("i18n").getResourceBundle();
