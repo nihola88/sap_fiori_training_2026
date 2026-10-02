@@ -44,5 +44,26 @@
 
         </Table>
     </Panel>
+    <Panel id="bindingPanel" expandable="true" expanded="true" headerText="{i18n>Bindings}">
+        <HBox id="bindigsPanelHbox1" alignItems="Center">
+            <Label id="bindingsPanelLabel" class="sapUiMediumMarginEnd" text="{i18n>BindingsPanelLabel}"></Label>
+            <Input id="bindingsPanelInput" class="sapUiMediumMarginEnd" width="10rem" value="{bindingsDemo>/inputValue}"></Input>
+            <Button id="bindingPanelButtonSayHello" text="{i18n>SayHelloText}" tooltip="{i18n>SayHelloTooltip}" type="Emphasized" press=".onSayHello"/>
+        </HBox>
+    </Panel>
+    <Panel id="SommaPanel" headerText="{i18n>SommaPanelHeader}" expandable="true" expanded="true">
+        <VBox id="VBoxSomma">
+            <HBox id="HBoxNum1">
+                <Label id="Label1" text="{i18n>Num1}" width="5rem"></Label>
+                <Input id="num1" value="{/num1}" width="15rem" type="Number"></Input>
+            </HBox>
+            <HBox id="HBoxNum2">
+                <Label id="Label2" text="{i18n>Num2}" width="5rem"></Label>
+                <Input id="num2" value="{/num2}" width="15rem" type="Number"></Input>
+            </HBox>
+            <Button id="sommaButton" text="{i18n>sommaButton}" press="onSommaButton"></Button>
+            <Text id="sommaResult" text="{parts:['i18n>SommaResult', '/sommaResult'], formatter: 'jQuery.sap.formatMessage'}"></Text>
+        </VBox>
+    </Panel>
     </Page>
 </mvc:View>
