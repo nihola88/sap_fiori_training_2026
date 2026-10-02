@@ -1,19 +1,19 @@
 {
   "name": "sap_fiori_training_2026",
   "version": "0.0.1",
-  "description": "SAP Fiori Training 2026",
+
+  "description": "{{tileDescription}}}",
   "keywords": [
     "ui5",
     "openui5",
     "sapui5"
   ],
   "main": "webapp/index.html",
-  "dependencies": {},
   "devDependencies": {
+    "@sap-ux/eslint-plugin-fiori-tools": "^10.13.0",
+    "@sap/ux-ui5-tooling": "^1.33.0",
     "@ui5/cli": "^4.0.33",
-    "@sap/ux-ui5-tooling": "1",
-    "@sap-ux/eslint-plugin-fiori-tools": "^10.0.0",
-    "eslint": "^10"
+    "eslint": "^10.11.0"
   },
   "scripts": {
     "start": "fiori run --open \"test/flp.html#app-preview\"",

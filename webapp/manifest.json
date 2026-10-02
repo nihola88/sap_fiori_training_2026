@@ -4,16 +4,31 @@
     "id": "fiori.y2026.sapfioritraining2026",
     "type": "application",
     "i18n": "i18n/i18n.properties",
+    "subTitle": "{{tileTitle}}",
     "applicationVersion": {
       "version": "0.0.1"
     },
     "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
+    "description": "{{appDescription2}}",
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.32.0",
       "toolsId": "e5630de5-8683-4160-b381-9d1d130d50ff"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ZFIORI_2026-open": {
+          "semanticObject": "ZFIORI_2026",
+          "action": "open",
+          "title": "{{ZFIORI_2026-open.flpTitle}}",
+          "subTitle": "{{ZFIORI_2026-open.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {

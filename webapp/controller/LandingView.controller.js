@@ -17,7 +17,7 @@ sap.ui.define([
             ];
             let oModel = new sap.ui.model.json.JSONModel(vModel);
             this.getView().setModel(oModel, "myModel");
-            vModel = { num1: 0, num2:0, sommaResult: Number(0).toLocaleString("it-IT", { style: "currency", currency: "EUR" })};
+            vModel = { num1: 0, num2:0, sommaResult: Number(0).toLocaleString("it-IT")};
             oModel = new sap.ui.model.json.JSONModel(vModel);
             oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
             this.getView().setModel(oModel);

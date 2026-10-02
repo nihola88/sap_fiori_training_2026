@@ -1,7 +1,7 @@
 <mvc:View controllerName="fiori.y2026.sapfioritraining2026.controller.App"
     displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <App id="app">
+    xmlns="sap.m" viewName="{i18n>tileTitle}">
+    <App id="app" >
     </App>
 </mvc:View>

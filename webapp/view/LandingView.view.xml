@@ -8,23 +8,22 @@
             <VBox id="VBox1" height="100%">
             <Button id= "baseComponentsPanelButtonToast" 
                     text="{i18n>ToastButtonText}" 
-                    press="onToastButtonPress" 
+                    press=".onToastButtonPress" 
                     type="Emphasized" icon="sap-icon://addresses"
                     />
                     <Button id ="MessageBoxButton" class="sapUiSmallMarginBegin"
                     text="{i18n>MessageBoxButtonText}"
-                    press="onMessageBoxButtonPress"
+                    press=".onMessageBoxButtonPress"
                     tooltip="{i18n>MessageBoxButtonTooltip}"
                     />
                     <HBox id="HBStepInput" class="baseComponentsPanelButtonToast" alignContent="Start" alignItems="Center" width="100%">
-                        <StepInput id="StepInputTest" change="onStepInputChange" min="0" max="10" description="Step Input"></StepInput>
+                        <StepInput id="StepInputTest" change=".onStepInputChange" min="0" max="10" description="Step Input"></StepInput>
                         <Text id="stepInputDescr" text="{i18n>StepInputDescription}" ></Text>
                     </HBox>
             </VBox>
         </HBox>
         <Table id="tab1" items="{myModel>/}" class="sapUiResponsiveMargin" inset="false" width="100%"
-            headerText="HeaderTest" swipeDirection="LeftToRight"
-        >
+            headerText="HeaderTest">
             <columns>
                 <Column id="col1">
                     <Text id="Field1" text="Var1Head"></Text>
@@ -45,23 +44,23 @@
         </Table>
     </Panel>
     <Panel id="bindingPanel" expandable="true" expanded="true" headerText="{i18n>Bindings}">
-        <HBox id="bindigsPanelHbox1" alignItems="Center">
-            <Label id="bindingsPanelLabel" class="sapUiMediumMarginEnd" text="{i18n>BindingsPanelLabel}"></Label>
-            <Input id="bindingsPanelInput" class="sapUiMediumMarginEnd" width="10rem" value="{bindingsDemo>/inputValue}"></Input>
-            <Button id="bindingPanelButtonSayHello" text="{i18n>SayHelloText}" tooltip="{i18n>SayHelloTooltip}" type="Emphasized" press=".onSayHello"/>
+        <HBox id="bindigsPanelHbox1" alignItems="Center" alignContent="Center">
+            <Label id="bindingsPanelLabel" class="sapUiMediumMarginEnd" text="{i18n>BindingsPanelLabel}" textAlign="Center"></Label>
+            <Input id="bindingsPanelInput" class="sapUiMediumMarginEnd" width="10rem" value="{bindingsDemo>/inputValue}" textAlign="Center"></Input>
+            <Button id="bindingPanelButtonSayHello" text="{i18n>SayHelloText}" tooltip="{i18n>SayHelloTooltip}" type="Emphasized" press=".onSayHello" />
         </HBox>
     </Panel>
     <Panel id="SommaPanel" headerText="{i18n>SommaPanelHeader}" expandable="true" expanded="true">
         <VBox id="VBoxSomma">
             <HBox id="HBoxNum1">
-                <Label id="Label1" text="{i18n>Num1}" width="5rem"></Label>
-                <Input id="num1" value="{/num1}" width="15rem" type="Number"></Input>
+                <Label id="Label1" text="{i18n>Num1}" width="5rem" textAlign="Center"></Label>
+                <Input id="num1" value="{/num1}" width="15rem" type="Number" textAlign="Center"></Input>
             </HBox>
             <HBox id="HBoxNum2">
-                <Label id="Label2" text="{i18n>Num2}" width="5rem"></Label>
-                <Input id="num2" value="{/num2}" width="15rem" type="Number"></Input>
+                <Label id="Label2" text="{i18n>Num2}" width="5rem" textAlign="Center"></Label>
+                <Input id="num2" value="{/num2}" width="15rem" type="Number" textAlign="Center"></Input>
             </HBox>
-            <Button id="sommaButton" text="{i18n>sommaButton}" press="onSommaButton"></Button>
+            <Button id="sommaButton" text="{i18n>sommaButton}" press=".onSommaButton"></Button>
             <Text id="sommaResult" text="{parts:['i18n>SommaResult', '/sommaResult'], formatter: 'jQuery.sap.formatMessage'}"></Text>
         </VBox>
     </Panel>
