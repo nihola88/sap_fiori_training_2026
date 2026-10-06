@@ -71,6 +71,11 @@
                 <Title id="titleHeaderDialogPanel" text="{i18n>dialogPanel.title}" textAlign="Center" width="90%"></Title>
             </tnt:ToolHeader>
         </headerToolbar>
+        <infoToolbar>
+            <Toolbar id="dialogPanelInfoToolbar" >
+                <Text id="dialogPanelInfoToolbarText" text="Pannello dialoghi" textAlign="Begin"></Text>
+            </Toolbar>
+        </infoToolbar>
         <Button id="dialogBtnOpen" text="{i18n>dialogPanel.openBtn}" icon="sap-icon://bell" press=".onOpenDialog"
                 class="sapUiSmallMarginBeginEnd"></Button>
         <Button id="insertUserBtn" text="{i18n>dialogPanel.insertUsr}"

@@ -124,10 +124,11 @@ sap.ui.define([
             let oData = oUsrModel.getData();
             let vMess = "";
             Object.entries(oData).forEach(([key, field]) => {
-                const vStr = key + ": " + field.value;
+                const vStr = key.charAt(0).toUpperCase() + key.slice(1) + ": " + field.value;
                 vMess = vMess ? vMess + '\n' + vStr : vStr;
             });
             mt.show(vMess);
+            mb.show(vMess, {title: "Informazioni Utente", icon:"Information"});
             this._oDialogUsr?.close();
         },
         onCloseDialogUsr(){
