@@ -111,6 +111,13 @@ sap.ui.define([
         async onOpenDialogUsr(){
             if(!this._oDialogUsr){
                 this._oDialogUsr = await this.loadFragment({ name: "fiori.y2026.sapfioritraining2026.view.fragments.dialogUsr"});
+                this._oDialogUsr.addEventDelegate({
+                    onkeydown: function(oEvent){
+                        if (oEvent.key === 'Enter'){
+                            this.getView().byId("DialogUsrBtnConf").getEnabled() ? this.onConfirmUsrBtn() : mb.error("Popolare tutti i campi!!!");
+                        }
+                    }
+                }, this, mb);
                 this._initializeDialogUsrModel();
             }
             else{
