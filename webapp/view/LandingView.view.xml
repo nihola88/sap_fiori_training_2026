@@ -64,5 +64,14 @@
             <Text id="sommaResult" text="{parts:['i18n>SommaResult', '/sommaResult'], formatter: 'jQuery.sap.formatMessage'}"></Text>
         </VBox>
     </Panel>
+    <Panel id= "dialogPanel" expandable="true" headerText="{i18n>dialogPanel.title}">
+        <Button id="dialogBtnOpen" text="{i18n>dialogPanel.openBtn}" icon="sap-icon://bell" press=".onOpenDialog"
+                class="sapUiSmallMarginBeginEnd"></Button>
+        <Button id="insertUserBtn" text="{i18n>dialogPanel.insertUsr}"
+                press=".onOpenDialogUsr"
+                class="sapUiSmallMarginBeginEnd" icon="sap-icon://account"
+        ></Button>
+
+    </Panel>
     </Page>
 </mvc:View>

@@ -1,8 +1,10 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
-], (Controller,mt, mb) => {
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel",
+    "fiori/y2026/sapfioritraining2026/model/models"
+], (Controller,mt, mb, JSONModel, models) => {
     "use strict";
 
     return Controller.extend("fiori.y2026.sapfioritraining2026.controller.LandingView", {
@@ -15,14 +17,14 @@ sap.ui.define([
                 { var1: "value3", var2: "value4" },
                 { var1: "value5", var2: "value6" }
             ];
-            let oModel = new sap.ui.model.json.JSONModel(vModel);
+            let oModel = new JSONModel(vModel);
             this.getView().setModel(oModel, "myModel");
             vModel = { num1: 0, num2:0, sommaResult: Number(0).toLocaleString("it-IT")};
-            oModel = new sap.ui.model.json.JSONModel(vModel);
+            oModel = new JSONModel(vModel);
             oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
             this.getView().setModel(oModel);
             vModel = { inputValue: "test"};
-            oModel = new sap.ui.model.json.JSONModel(vModel);
+            oModel = new JSONModel(vModel);
             this.getView().setModel(oModel, "bindingsDemo");
         },
         onAfterRendering (){
@@ -66,6 +68,89 @@ sap.ui.define([
         },
         getI18nText(sKey, aAttributes){
             return this.getView().getModel("i18n").getResourceBundle().getText(sKey, aAttributes);
+        },
+
+        // --- Dialog
+        _initializeDialogModel(){
+            this.getView().setModel(new JSONModel(models.defaultPanelModel()), "dialogModel");
+        },
+
+        _restoreDialogModel(){
+            this.getView().getModel("dialogModel").setData(models.defaultPanelModel());
+        },
+
+        async onOpenDialog(){
+            if(!this._oDialog){
+                this._oDialog = await this.loadFragment({ name: "fiori.y2026.sapfioritraining2026.view.fragments.Dialog"});
+                this._initializeDialogModel();
+            }
+            else{
+                this._restoreDialogModel();
+            }
+            this._oDialog.open();
+        },
+        onCloseDialog(){
+            this._oDialog?.close();
+        },
+
+        onConfirmBtn(){
+            const nNumber = this.getView().getModel("dialogModel").getProperty("/inputNumber");
+            mt.show(nNumber);
+            this._oDialog?.close();
+        },
+
+        // --- DialogUsr
+        _initializeDialogUsrModel(){
+            this.getView().setModel(new JSONModel(models.defaultUsrModel()), "usrDialog");
+        },
+
+        _restoreDialogUsrModel(){
+            this.getView().getModel("usrDialog").setData(models.defaultUsrModel());
+        },
+
+        async onOpenDialogUsr(){
+            if(!this._oDialogUsr){
+                this._oDialogUsr = await this.loadFragment({ name: "fiori.y2026.sapfioritraining2026.view.fragments.dialogUsr"});
+                this._initializeDialogUsrModel();
+            }
+            else{
+                this._restoreDialogUsrModel();
+            }
+            this._oDialogUsr?.open();
+        },
+
+        onConfirmUsrBtn(){
+            let oUsrModel = this.setConfirmed();
+            let oData = oUsrModel.getData();
+            let vMess = "";
+            Object.entries(oData).forEach(([key, field]) => {
+                const vStr = key + ": " + field.value;
+                vMess = vMess ? vMess + '\n' + vStr : vStr;
+            });
+            mt.show(vMess);
+            this._oDialogUsr?.close();
+        },
+        onCloseDialogUsr(){
+            this._oDialogUsr?.close();
+        },
+
+        setConfirmed(oSource){
+            let oUsrModel = this.getView().getModel("usrDialog");
+            let vConfPath = oSource?.getBinding("value").getPath().replace("value", "confirmed");
+            oUsrModel.setProperty(vConfPath, true);
+            return oUsrModel;
+        },
+        onInputChange(oEvent){
+            const oSource = oEvent.getSource();
+            this.setConfirmed(oSource);
+/*            if (oSource.getValue() === ""){
+                oSource.setValueState(sap.ui.core.ValueState.Error);
+                oSource.setValueStateText(Controller.oBundle.getText("error.insertValue"));
+            }
+            else{
+                oSource.setValueState(sap.ui.core.ValueState.None);
+                oSource.setValueStateText("");
+            }*/
         }
     })
 });

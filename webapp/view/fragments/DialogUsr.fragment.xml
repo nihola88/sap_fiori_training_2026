@@ -1,0 +1,62 @@
+<core:FragmentDefinition id="dialogUsrFrgmnt" xmlns="sap.m" xmlns:core="sap.ui.core">
+<Dialog id="dialogUsr" title="{i18n>DialogUsr.Title}" draggable="true">
+    <content>
+    <VBox id="DialogUsrVBoxLbl" class="sapUiSmallMargin" alignItems="Start">
+        <HBox id="DialogUsrHBoxLbl1" width="30rem">
+            <Label id="UsrLabelName" text="{i18n>DialogUsr.Name}" width="30%"
+                class="sapUiSmallMargin" labelFor="UsrInputName" textAlign="Left"/>
+            <Input id="UsrInputName" placeholder="{i18n>DialogUsr.Name}" type="Text" width="70%"
+                    class="sapUiSmallMargin" value="{usrDialog>/name/value}" textAlign="Left"
+                    required="true" liveChange=".onInputChange"
+                    valueState="{= ${usrDialog>name/confirmed} &amp;&amp; ${usrDialog>/name/value} === '' ? 'Error' : 'None'}"
+                    valueStateText="{= ${usrDialog>/name/confirmed} &amp;&amp; ${usrDialog>/name/value} === '' ? ${i18n>error.insertValue} : ''}" 
+                    />
+        </HBox>
+        <HBox id="DialogUsrHBoxLbl2" width="30rem">
+            <Label id="UsrLabelSurname" text="{i18n>DialogUsr.Surname}" width="30%"
+                class="sapUiSmallMargin" labelFor="UsrInputSurname" textAlign="Left"/>
+            <Input id="UsrInputSurname" placeholder="{i18n>DialogUsr.Surname}" type="Text" width="70%"
+                    class="sapUiSmallMargin" value="{usrDialog>/surname/value}" textAlign="Left"
+                    required="true" valueLiveUpdate="true" liveChange=".onInputChange"
+                    valueState="{= ${usrDialog>/surname/confirmed} &amp;&amp; ${usrDialog>/surname/value} === '' ? 'Error' : 'None'}"
+                    valueStateText="{= ${usrDialog>/surname/confirmed} &amp;&amp; ${usrDialog>/surname/value} === '' ? ${i18n>error.insertValue} : ''}" 
+                    />
+        </HBox>
+        <HBox id="DialogUsrHBoxLbl3" width="30rem">
+            <Label id="UsrLabelEMail" text="{i18n>DialogUsr.EMail}" width="30%"
+                class="sapUiSmallMargin" labelFor="UsrInputEMail" textAlign="Left"></Label>
+            <Input id="UsrInputEMail" placeholder="{i18n>DialogUsr.EMail}" type="Email" width="70%"
+                    class="sapUiSmallMargin" value="{usrDialog>/email/value}" textAlign="Left"
+                    required="true" liveChange=".onInputChange" valueLiveUpdate="true"
+                    valueState="{= ${usrDialog>/email/confirmed} &amp;&amp; ${usrDialog>/email/value} === '' ? 'Error' : 'None'}"
+                    valueStateText="{= ${usrDialog>/email/confirmed} &amp;&amp; ${usrDialog>/email/value} === '' ? ${i18n>error.insertValue} : ''}" 
+                    />
+        </HBox>
+        <HBox id="DialogUsrHBoxLbl4" width="30rem">
+            <Label id="UsrLabelPhone" text="{i18n>DialogUsr.Phone}" width="30%"
+                class="sapUiSmallMargin" labelFor="UsrInputPhone" textAlign="Left"></Label>
+            <Input id="UsrInputPhone" placeholder="{i18n>DialogUsr.Phone}" type="Tel" width="70%"
+                    class="sapUiSmallMargin" value="{usrDialog>/phone/value}" textAlign="Left"
+                    required="true" liveChange=".onInputChange" valueLiveUpdate="true"
+                    valueState="{= ${usrDialog>/phone/confirmed} &amp;&amp; ${usrDialog>/phone/value} === '' ? 'Error' : 'None'}"
+                    valueStateText="{= ${usrDialog>/phone/confirmed} &amp;&amp; ${usrDialog>/phone/value} === '' ? ${i18n>error.insertValue} : ''}" 
+                    />
+        </HBox>
+    </VBox>
+    </content>
+    <beginButton>
+        <Button id="DialogUsrBtnConf"
+            enabled= "{= ${usrDialog>/name/value} !== '' 
+                   &amp;&amp; ${usrDialog>/surname/value} !== '' 
+                   &amp;&amp; ${usrDialog>/email/value} !== '' 
+                   &amp;&amp; ${usrDialog>/phone/value} !== ''}"
+            text="{i18n>DialogUsr.ConfirmBtn}"
+            press=".onConfirmUsrBtn"
+            type="Emphasized"
+        ></Button>
+    </beginButton>
+    <endButton>
+        <Button id="DialogUrsBtnEnd" text="{i18n>dialog.endBtn}" press=".onCloseDialogUsr"></Button>
+    </endButton>
+</Dialog>
+</core:FragmentDefinition>

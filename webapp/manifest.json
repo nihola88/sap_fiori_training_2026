@@ -4,6 +4,8 @@
     "id": "fiori.y2026.sapfioritraining2026",
     "type": "application",
     "i18n": "i18n/i18n.properties",
+    "info":"{{tileTitle}}",
+    "shortTitle": "testManifest",
     "subTitle": "{{tileTitle}}",
     "applicationVersion": {
       "version": "0.0.1"

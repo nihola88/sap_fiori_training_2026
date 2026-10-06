@@ -11,9 +11,24 @@ function (JSONModel, Device) {
          * @returns {sap.ui.model.json.JSONModel} The device model.
          */
         createDeviceModel: function () {
-            var oModel = new JSONModel(Device);
+            let oModel = new JSONModel(Device);
             oModel.setDefaultBindingMode("OneWay");
             return oModel;
+        },
+        defaultPanelModel(){
+            return {
+                inputNumber: 0
+            };;
+        },
+
+        defaultUsrModel(){
+            return {
+                name: { value: "", confirmed: false },
+                surname: { value: "", confirmed: false },
+                email: { value: "", confirmed: false },
+                phone: { value: "", confirmed: false }
+            };
+        
         }
     };
 

@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" id="dialogFragment" xmlns="sap.m">
+    <Dialog id="dialog" title="{i18n>dialog.DialogTitle}">
+    <content>   
+    <HBox id="dialogHBox1" alignItems="Center" class="sapUiSmallMargin">
+    <Label id="dialogLabel" text="{i18n>dialog.inputLabel}" class="sapUiSmallMarginEnd"
+    labelFor="dialogNumberInput"></Label>
+        <Input  id="dialogNumberInput" type="Number" 
+                value = "{dialogModel>/inputNumber}" 
+                valueLiveUpdate="true"
+                class="sapUiSmallMargin"
+                >
+        </Input>
+        <core:Icon id="dialogIcon" 
+                   src="{= ${dialogModel>/inputNumber} &gt; 10 ? 'sap-icon://trend-up' : 'sap-icon://trend-down'}"
+                   class="sapUiMediumMarginBegin"/>
+    
+    </HBox>
+    </content>
+    <beginButton>
+        <Button id="dialogConfirmBtn" 
+                text="{i18n>dialog.confirmBtn}" press=".onConfirmBtn" 
+                type="Emphasized"
+                enabled="{= ${dialogModel>/inputNumber} !== ''}"></Button>
+    </beginButton>
+    <endButton>
+        <Button id="dialogEndBtn" text="{i18n>dialog.endBtn}" press=".onCloseDialog"></Button>
+    </endButton>
+    </Dialog>
+</core:FragmentDefinition>
