@@ -1,4 +1,4 @@
-<mvc:View controllerName="fiori.y2026.sapfioritraining2026.controller.LandingView"
+<mvc:View xmlns:core="sap.ui.core" xmlns:vk="sap.ui.vk" xmlns:tnt="sap.tnt" controllerName="fiori.y2026.sapfioritraining2026.controller.LandingView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
@@ -64,7 +64,13 @@
             <Text id="sommaResult" text="{parts:['i18n>SommaResult', '/sommaResult'], formatter: 'jQuery.sap.formatMessage'}"></Text>
         </VBox>
     </Panel>
-    <Panel id= "dialogPanel" expandable="true" headerText="{i18n>dialogPanel.title}">
+    <Panel id= "dialogPanel" expandable="true" headerText="{i18n>dialogPanel.title}" >
+        <headerToolbar>
+            <tnt:ToolHeader id="header" style="Clear" >
+                <core:Icon id="iconHeaderDialogPanel" color="Positive" src="sap-icon://message-popup"></core:Icon>
+                <Title id="titleHeaderDialogPanel" text="{i18n>dialogPanel.title}" textAlign="Center" width="90%"></Title>
+            </tnt:ToolHeader>
+        </headerToolbar>
         <Button id="dialogBtnOpen" text="{i18n>dialogPanel.openBtn}" icon="sap-icon://bell" press=".onOpenDialog"
                 class="sapUiSmallMarginBeginEnd"></Button>
         <Button id="insertUserBtn" text="{i18n>dialogPanel.insertUsr}"
