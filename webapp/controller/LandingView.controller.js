@@ -4,14 +4,16 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
     "fiori/y2026/sapfioritraining2026/model/models",
+    "fiori/y2026/sapfioritraining2026/model/utils",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator"
-], (Controller,mt, mb, JSONModel, models, Filter, FilterOp) => {
+], (Controller,mt, mb, JSONModel, models, utils, Filter, FilterOp) => {
     "use strict";
 
     return Controller.extend("fiori.y2026.sapfioritraining2026.controller.LandingView", {
         onInit() {
             this._initializeBindingsDemoModel();
+            utils._initializeGlobal(this.getView());
         },
         _initializeBindingsDemoModel(){
             let vModel = [
@@ -52,14 +54,14 @@ sap.ui.define([
         onSayHello(){
             const oModelData = this.getView().getModel("bindingsDemo").getData();
             //mt.show(`Ciao ${oModelData.inputValue}`);
-            const sText = this.getI18nText("SayHelloMessage", [oModelData.inputValue]);
+            const sText = utils.getI18nText("SayHelloMessage", [oModelData.inputValue]);
             mt.show(sText);
         },
         onSommaButton() {
             let vNum1 = Number( this.getView().getModel().getProperty("/num1") );
             let vNum2 = Number( this.getView().getModel().getProperty("/num2") );
             if(Number.isNaN(vNum1) || Number.isNaN(vNum2)){
-                mb.error(this.getI18nText("NaNErrorMessage")); return;
+                mb.error(utils.getI18nText("NaNErrorMessage")); return;
             }
             let vSomma = vNum1 + vNum2;
             vSomma = Number.parseFloat(vSomma).toFixed(2);
@@ -67,9 +69,6 @@ sap.ui.define([
             
             mt.show(Controller.oBundle.getText("SommaMessage", [vNum1, vNum2, vSomma]));
             this.getView().getModel().setProperty("/sommaResult", vSomma);
-        },
-        getI18nText(sKey, aAttributes){
-            return this.getView().getModel("i18n").getResourceBundle().getText(sKey, aAttributes);
         },
 
         // --- Dialog
@@ -165,13 +164,37 @@ sap.ui.define([
         onSearchSO(oEvent){
             const sSearchValue = oEvent.getSource().getValue();
             let aFilters = [];
+            let aFilters2 = [] ;
+            let oFilters;
             if (sSearchValue){
-                aFilters.push(new Filter("SalesOrder", FilterOp.Contains, sSearchValue));
+
+                //obiettivo: ( (SalesOrder = SearchValue OR Createdby=ROSSI) AND (DelStatus="B") )
+                aFilters.push(
+//v1 filtro funziona ma non con AND
+                    //new Filter("SalesOrder", FilterOp.Contains, sSearchValue),
+                    //new Filter("CreatedByUser",FilterOp.Contains,"ROSSI")
+//v2 ko
+                    //new Filter({path:"SalesOrder", operator: FilterOp.Contains, value1:sSearchValue, and: false}),
+                    //new Filter({path:"CreatedByUser",operator:FilterOp.Contains,value1:"ROSSI", and:false})
+                               );
+//v1
+                //aFilters2 = [new Filter(aFilters, false)];
+//v2
+                //aFilters2 = aFilters;
+//v3 okissimo
+            aFilters = new Filter([
+                    new Filter("SalesOrder", FilterOp.Contains, sSearchValue),
+                    new Filter("CreatedByUser", FilterOp.Contains,"ROSSI")
+            ], false
+                            )
+            aFilters2 = new Filter("OverallDeliveryStatus", FilterOp.EQ, "B");
+            oFilters = new Filter([aFilters, aFilters2], true);
+
             }
 
             const oSalesOrdersList = this.byId("salesOrderList");
             const oListBinding = oSalesOrdersList.getBinding("items");
-            oListBinding.filter(aFilters);
+            oListBinding.filter(oFilters);
 
         }
     })

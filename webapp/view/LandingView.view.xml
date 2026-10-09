@@ -1,6 +1,10 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:vk="sap.ui.vk" xmlns:tnt="sap.tnt" controllerName="fiori.y2026.sapfioritraining2026.controller.LandingView"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    core:require="{
+        Formatter: 'fiori/y2026/sapfioritraining2026/model/formatter',
+        Currency: 'sap/ui/model/type/Currency'
+    }">
     <Page id="page" title="{i18n>title}">
     <Panel id="baseComponentsPanel" expandable="true" expanded="true" headerText="{i18n>baseComponentsPanelHeader}">
         <HBox id="baseComponentsPanelHBox1" alignItems="Center" width="100%">
@@ -87,28 +91,41 @@
 
     </Panel>
     <Panel id="listPanel" expandable="true" expanded="false" headerText="{i18n>listPanel.header}">
-        <List id="salesOrderList" width="auto" items="{salesOrders>/SalesOrders}"
-            headerText="{i18n>listPanel.headerText}">
+        <List id="salesOrderList" items="{salesOrders>/SalesOrders}"
+             headerText="{i18n>listPanel.headerText}"
+            >
             <headerToolbar>
-                <OverflowToolbar id="salesOrdersToolbar" width="auto" class="sapUiSmallMargin" height="auto">
-                    <VBox id="salesOrdersHeaderVBox">
-                        <Title id="salesOrdersTitle" text="{i18n>listPanel.headerText}" width="auto"/>
+                <OverflowToolbar id="salesOrdersToolbar" class="sapUiSmallMargin" height="auto">
+                    <!--<VBox id="salesOrdersHeaderVBox">-->
+                        <Title id="salesOrdersTitle" text="{i18n>listPanel.headerText}"/>
+                        <ToolbarSpacer id="salesOrdHeaderSpacer"/>
                         <SearchField id="salesOrdersSearchField" 
-                            search=".onSearchSO" width="auto" liveChange=".onSearchSO">
+                            search=".onSearchSO" liveChange=".onSearchSO" width="50%">
                         </SearchField>
-                    </VBox>
+                    <!--</VBox>-->
                 </OverflowToolbar>
             </headerToolbar>
             <items>
                 <ObjectListItem id="salesOrdersObjectListItem" 
                                 title="{salesOrders>SalesOrder}"
-                                number="{salesOrders>TotalNetAmount}"
+                                number="{
+                                            parts:['salesOrders>TotalNetAmount',
+                                                    'salesOrders>TransactionCurrency'],
+                                            type: 'Currency',
+                                            formatOptions:  {showMeasure: true }
+                                         }"
                                 numberUnit="{salesOrders>TransactionCurrency}">
                     <ObjectAttribute id="salesOrderObjAttribute"
                                      text="{i18n>listPanel.createdBy} {salesOrders>CreatedByUser}"/>
                     <firstStatus>
                         <ObjectStatus id="salesOrderObjectStatus"
-                            text="{salesOrders>OverallDeliveryStatus}" state="Error"/>
+                            text="{path:'salesOrders>OverallDeliveryStatus',
+                                   formatter:'Formatter.overallDeliveryStatusText.bind($controller)'
+                                  }"
+                                  state="{
+                                    path:'salesOrders>OverallDeliveryStatus',
+                                    formatter:'Formatter.overallDeliveryStatusState.bind($controller)'
+                                  }"/>
                     </firstStatus>
                 </ObjectListItem>
             </items>
