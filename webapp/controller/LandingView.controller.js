@@ -188,7 +188,7 @@ sap.ui.define([
             ], false
                             )
             aFilters2 = new Filter("OverallDeliveryStatus", FilterOp.EQ, "B");
-            oFilters = new Filter([aFilters, aFilters2], true);
+            oFilters = new Filter({filters:[aFilters, aFilters2], and: true});
 
             }
 

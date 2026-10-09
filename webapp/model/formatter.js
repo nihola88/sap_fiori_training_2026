@@ -28,6 +28,19 @@ sap.ui.define([
                     case "D":
                         return utils.getI18nText("deliveryStatusSpace");
                 }
+            },
+            formatDate(vStringDate){
+                if(!vStringDate){
+                    return "";
+                }
+
+                const oDate = new Date(
+                    Number.parseInt(vStringDate.match(/\d+/)[0], 10)
+                );
+
+                return sap.ui.core.format.DateFormat
+                    .getDateInstance({ pattern: "dd/MM/yyyy" })
+                    .format(oDate);
             }
         }
     }

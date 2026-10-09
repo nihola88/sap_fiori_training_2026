@@ -1,4 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:vk="sap.ui.vk" xmlns:tnt="sap.tnt" controllerName="fiori.y2026.sapfioritraining2026.controller.LandingView"
+<mvc:View xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:vk="sap.ui.vk" xmlns:tnt="sap.tnt" controllerName="fiori.y2026.sapfioritraining2026.controller.LandingView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     core:require="{
@@ -130,6 +130,48 @@
                 </ObjectListItem>
             </items>
         </List>
+    </Panel>
+    <Panel id="panelResponsiveTab" expandable="true" expanded="false" headerText="{i18n>respTab.header}">
+
+        <content>
+        <fb:FilterBar id="respTableFiltBar">
+            <fb:filterGroupItems>
+                <fb:FilterGroupItem id="filter1" name="CreatedBy" label="Name" groupName="group1">
+                    <fb:control>
+                        <MultiComboBox id="comboBox1" name="CreatedBy" items="{salesOrders>/SalesOrders}">
+                            <items>
+                                <core:Item id="cb1Item" key="{salesOrders>CreatedByUser}"></core:Item>
+                            </items>
+                        </MultiComboBox>
+                    </fb:control>
+                </fb:FilterGroupItem>
+            </fb:filterGroupItems>
+        </fb:FilterBar>
+            <Table id="respTab" items="{salesOrders>/SalesOrders}">
+                <columns>
+                    <Column id="salesOrdC" width="10%"><Label id="salesOrdLabel" text="{i18n>respTabCol.salesOrd}"></Label></Column>
+                    <Column id="SOTypC" width="10%"><Label id="SOTypLabel" text="{i18n>respTabCol.SOTyp}"></Label></Column>
+                    <Column id="SODatC" width="15%"><Label id="SODatLabel" text="{i18n>respTabCol.SODat}"></Label></Column>
+                    <Column id="SOSOrgC" width="10%"><Label id="SOSOrgLabel" text="{i18n>respTabCol.SOSOrg}"></Label></Column>
+                    <Column id="CreatedByUserC" width="40%"><Label id="CreatedByUserLabel" text="{i18n>respTabCol.CreatedByUser}"></Label></Column>
+
+                </columns>
+
+                <items>
+                    <ColumnListItem id="respTabColList" highlight="None">
+                        <Text id="salesOrdT" text="{salesOrders>SalesOrder}"></Text>
+                        <Text id="SOTypT" text="{salesOrders>SalesOrderType}"></Text>
+                        <Text id="SODatT" text="{path:'salesOrders>SalesOrderDate',
+                                                 type:'sap.ui.model.odata.type.Date',
+                                                 formatter:'Formatter.formatDate.bind($controller)',
+                                                 formatOptions:{pattern: 'dd/mm/yyyy'}}"></Text>
+                        <Text id="SOSOrgT" text="{salesOrders>SalesOrganization}"></Text>
+                        <Text id="CreatedByUserT" text="{salesOrders>CreatedByUser}"></Text>
+                    </ColumnListItem>
+                </items>
+            
+                </Table>
+        </content>
     </Panel>
     </Page>
 </mvc:View>
