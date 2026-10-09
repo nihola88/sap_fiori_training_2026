@@ -3,8 +3,10 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
-    "fiori/y2026/sapfioritraining2026/model/models"
-], (Controller,mt, mb, JSONModel, models) => {
+    "fiori/y2026/sapfioritraining2026/model/models",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], (Controller,mt, mb, JSONModel, models, Filter, FilterOp) => {
     "use strict";
 
     return Controller.extend("fiori.y2026.sapfioritraining2026.controller.LandingView", {
@@ -159,6 +161,18 @@ sap.ui.define([
                 oSource.setValueState(sap.ui.core.ValueState.None);
                 oSource.setValueStateText("");
             }*/
+        },
+        onSearchSO(oEvent){
+            const sSearchValue = oEvent.getSource().getValue();
+            let aFilters = [];
+            if (sSearchValue){
+                aFilters.push(new Filter("SalesOrder", FilterOp.Contains, sSearchValue));
+            }
+
+            const oSalesOrdersList = this.byId("salesOrderList");
+            const oListBinding = oSalesOrdersList.getBinding("items");
+            oListBinding.filter(aFilters);
+
         }
     })
 });

@@ -68,6 +68,10 @@
         "settings": {
           "bundleName": "fiori.y2026.sapfioritraining2026.i18n.i18n"
         }
+      },
+      "salesOrders":{
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/salesOrders.json"
       }
     },
     "resources": {

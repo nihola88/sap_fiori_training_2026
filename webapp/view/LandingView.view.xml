@@ -23,7 +23,9 @@
             </VBox>
         </HBox>
         <Table id="tab1" items="{myModel>/}" class="sapUiResponsiveMargin" inset="false" width="100%"
-            headerText="HeaderTest">
+            headerText="HeaderTest"
+            visible="false"
+            >
             <columns>
                 <Column id="col1">
                     <Text id="Field1" text="Var1Head"></Text>
@@ -83,6 +85,34 @@
                 class="sapUiSmallMarginBeginEnd" icon="sap-icon://account"
         ></Button>
 
+    </Panel>
+    <Panel id="listPanel" expandable="true" expanded="false" headerText="{i18n>listPanel.header}">
+        <List id="salesOrderList" width="auto" items="{salesOrders>/SalesOrders}"
+            headerText="{i18n>listPanel.headerText}">
+            <headerToolbar>
+                <OverflowToolbar id="salesOrdersToolbar" width="auto" class="sapUiSmallMargin" height="auto">
+                    <VBox id="salesOrdersHeaderVBox">
+                        <Title id="salesOrdersTitle" text="{i18n>listPanel.headerText}" width="auto"/>
+                        <SearchField id="salesOrdersSearchField" 
+                            search=".onSearchSO" width="auto" liveChange=".onSearchSO">
+                        </SearchField>
+                    </VBox>
+                </OverflowToolbar>
+            </headerToolbar>
+            <items>
+                <ObjectListItem id="salesOrdersObjectListItem" 
+                                title="{salesOrders>SalesOrder}"
+                                number="{salesOrders>TotalNetAmount}"
+                                numberUnit="{salesOrders>TransactionCurrency}">
+                    <ObjectAttribute id="salesOrderObjAttribute"
+                                     text="{i18n>listPanel.createdBy} {salesOrders>CreatedByUser}"/>
+                    <firstStatus>
+                        <ObjectStatus id="salesOrderObjectStatus"
+                            text="{salesOrders>OverallDeliveryStatus}" state="Error"/>
+                    </firstStatus>
+                </ObjectListItem>
+            </items>
+        </List>
     </Panel>
     </Page>
 </mvc:View>
