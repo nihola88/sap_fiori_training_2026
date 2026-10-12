@@ -13,13 +13,25 @@ function (JSONModel) {
                 let vFind = aCreatedBy.find( (names)=>names.name === vCreatedBy )
                 if(!vFind) aCreatedBy.push({name: vCreatedBy}) ;
             });
+            aCreatedBy.sort((a,b)=>{   
+                if(a.name > b.name){
+                    return 1;
+                }else if(a.name < b.name){
+                    return - 1;
+                }else{
+                    return 0;
+                }
 
-            oView.setModel(new JSONModel(aCreatedBy), "createdBy")
+            });
+            let filterbarModel = {
+                createdBy: aCreatedBy
+            };
+            oView.setModel(new JSONModel(filterbarModel), "filterbarModel")
 
         },
         getI18nText(sKey, aAttributes){
             return this.oComponent.getModel("i18n").getResourceBundle().getText(sKey, aAttributes);
-        }
+        }      
     }   
 
 }

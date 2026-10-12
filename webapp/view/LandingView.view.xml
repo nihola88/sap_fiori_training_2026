@@ -134,18 +134,24 @@
     <Panel id="panelResponsiveTab" expandable="true" expanded="false" headerText="{i18n>respTab.header}">
 
         <content>
-        <fb:FilterBar id="respTableFiltBar">
-            <fb:filterGroupItems>
-                <fb:FilterGroupItem id="filter1" name="CreatedBy" label="Name" groupName="group1">
+        <fb:FilterBar id="respTableFiltBar" useToolbar="false" search=".onSearchFilterBar">
+            <fb:filterGroupItems> 
+                <fb:FilterGroupItem id="filter1" name="CreatedBy" label="Name" groupName="Group1" visibleInFilterBar="true">
                     <fb:control>
-                        <MultiComboBox id="comboBox1" name="CreatedBy" items="{salesOrders>/SalesOrders}">
+                        <MultiComboBox id="comboBox1" name="CreatedBy" items="{filterbarModel>/createdBy}" selectionChange=".onSelectionChange">
                             <items>
-                                <core:Item id="cb1Item" key="{salesOrders>CreatedByUser}"></core:Item>
+                                <core:Item id="cb1Item" key="{filterbarModel>name}" text="{filterbarModel>name}"></core:Item>
                             </items>
                         </MultiComboBox>
                     </fb:control>
+                 </fb:FilterGroupItem>
+                <fb:FilterGroupItem id="filter2" name="SODate" label="Sales Ord. Date" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <DateRangeSelection id="dateRangeFilter" displayFormat="dd/MM/yyyy"
+                            showCurrentDateButton="true" showFooter="true" change=".handleDatePickChange"/>
+                    </fb:control>
                 </fb:FilterGroupItem>
-            </fb:filterGroupItems>
+           </fb:filterGroupItems>
         </fb:FilterBar>
             <Table id="respTab" items="{salesOrders>/SalesOrders}">
                 <columns>

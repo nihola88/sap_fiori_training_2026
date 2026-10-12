@@ -30,6 +30,15 @@ sap.ui.define([
             vModel = { inputValue: "test"};
             oModel = new JSONModel(vModel);
             this.getView().setModel(oModel, "bindingsDemo");
+
+            this.getView().byId("dateRangeFilter").addEventDelegate({
+                    onkeydown: function(oEvent){
+                        if (oEvent.key === 'Enter'){
+                            this.onSearchFilterBar();          
+                        }
+                    }
+                }, this);
+
         },
         onAfterRendering (){
             Controller.oBundle = this.getView().getModel("i18n").getResourceBundle();
@@ -196,6 +205,32 @@ sap.ui.define([
             const oListBinding = oSalesOrdersList.getBinding("items");
             oListBinding.filter(oFilters);
 
-        }
+        },
+        onSearchFilterBar(oEvent){
+            let selItems = this.getView().byId("comboBox1").getSelectedItems();
+            let aCreatedBySelected = selItems.map((item)=> { 
+                return new Filter("CreatedByUser", FilterOp.Contains, item.getKey())}
+            );
+
+            
+            let aFilterArray = [];
+            if(aCreatedBySelected.length>0){    
+                aFilterArray.push( new Filter( aCreatedBySelected, false ) );
+            }
+
+            let oDateRangeFilter =  this.getView().byId("dateRangeFilter");
+            let vDateFrom = oDateRangeFilter.getDateValue();
+            let vDateTo   = oDateRangeFilter.getSecondDateValue();
+            if(vDateFrom || vDateTo){
+                
+                vDateTo = vDateTo || new Date(vDateFrom);
+                vDateTo.setHours(23,59,59,999);
+                let vDateFromJSON = `/Date(${vDateFrom?.getTime()})/`;
+                let vDateToJSON = `/Date(${vDateTo?.getTime()})/`;
+                
+                aFilterArray.push(new Filter("SalesOrderDate", FilterOp.BT, vDateFromJSON, vDateToJSON));
+            }
+            this.getView().byId("respTab").getBinding("items").filter(aFilterArray);
+        }  
     })
 });
