@@ -4,9 +4,9 @@ sap.ui.define([
 function (JSONModel) {
     "use strict";
     return{
-        _initializeGlobal(oView){
-            this.oComponent = oView.getController().getOwnerComponent();
-            let aSOrders = this.oComponent.getModel("salesOrders").getProperty("/SalesOrders");
+        _initializeGlobal(that){
+            that.oComponent = this.oComponent = that.getView().getController().getOwnerComponent();
+            let aSOrders = that.oComponent.getModel("salesOrders").getProperty("/A_SalesOrder");
             let aCreatedBy = [];
             aSOrders.forEach( (so) => {
                 let vCreatedBy = so.CreatedByUser;
@@ -26,7 +26,8 @@ function (JSONModel) {
             let filterbarModel = {
                 createdBy: aCreatedBy
             };
-            oView.setModel(new JSONModel(filterbarModel), "filterbarModel")
+            that.getView().setModel(new JSONModel(filterbarModel), "filterbarModel");
+            that.oRouter = that.getOwnerComponent().getRouter();
 
         },
         getI18nText(sKey, aAttributes){

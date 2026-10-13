@@ -1,0 +1,43 @@
+<mvc:View
+    controllerName="fiori.y2026.sapfioritraining2026.controller.SalesOrderItem"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form">
+    <Page id="pageSalesOrderItem" title="{ parts:['i18n>item.pageTitle', 'salesOrders>SalesOrder', 'salesOrders>SalesOrderItem'],
+                                             formatter:'jQuery.sap.formatMessage'}">
+        <footer>
+            <OverflowToolbar id="SOItemFooterToolBar">
+                <Button id="SOItemBackButton" press=".onBackButton" type="Back" text="{i18n>item.backButton}"></Button>
+            </OverflowToolbar>
+        </footer>                                             
+        <form:SimpleForm id="SOItemGeneralInfoForm"
+            editable="false"
+            layout="ColumnLayout"
+            title="{i18n>detail.generalInfo.title}"
+            columnsXL="2"
+            columnsL="2"
+            columnsM="1">
+            <form:content>
+                <Label id="SOItemSalesOrderLabel"
+                    text="{i18n>detail.generalInfo.salesOrderLabel}"/>
+                <Text id="SOItemSalesOrderText"
+                    text="{salesOrders>SalesOrder}"/>
+                <Label id="SOItemSalesOrderItemLabel"
+                    text="{i18n>item.salesOrderItem}"/>
+                <Text id="SOItemSalesOrderItemText"
+                    text="{salesOrders>SalesOrderItem}"/>
+            </form:content>
+        </form:SimpleForm>
+
+        <form:SimpleForm id="SOItemDeliveryInfoForm"
+            editable="false"
+            layout="ColumnLayout"
+            title="{i18n>detail.deliveryInfo.title}"
+            columnsXL="2"
+            columnsL="2"
+            columnsM="1">
+            <form:content>
+            </form:content>
+        </form:SimpleForm>
+    </Page>
+</mvc:View>

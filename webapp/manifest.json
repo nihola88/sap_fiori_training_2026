@@ -71,7 +71,7 @@
       },
       "salesOrders":{
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "model/salesOrders.json"
+        "uri": "model/2-salesOrders.json"
       }
     },
     "resources": {
@@ -100,12 +100,34 @@
           "target": [
             "TargetLandingView"
           ]
+        },
+        {
+          "name": "RouteSalesOrderDetail",
+          "pattern": "salesOrder/{SalesOrderPath}",
+          "target": [
+            "TargetSalesOrderDetail"
+          ]
+        },
+        {
+          "name": "RouteSalesOrderItem",
+          "pattern": "salesOrder/item/{SalesOrderPath}",
+          "target": [
+            "TargetSalesOrderItem"
+          ]
         }
       ],
       "targets": {
         "TargetLandingView": {
           "id": "LandingView",
           "name": "LandingView"
+        },
+        "TargetSalesOrderDetail": {
+          "id": "pageSalesOrderDetail",
+          "name": "SalesOrderDetail"
+        },
+        "TargetSalesOrderItem": {
+          "id": "pageSalesOrderItem",
+          "name": "SalesOrderItem"
         }
       }
     },

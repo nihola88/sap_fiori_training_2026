@@ -13,7 +13,7 @@ sap.ui.define([
     return Controller.extend("fiori.y2026.sapfioritraining2026.controller.LandingView", {
         onInit() {
             this._initializeBindingsDemoModel();
-            utils._initializeGlobal(this.getView());
+            utils._initializeGlobal(this);
         },
         _initializeBindingsDemoModel(){
             let vModel = [
@@ -231,6 +231,12 @@ sap.ui.define([
                 aFilterArray.push(new Filter("SalesOrderDate", FilterOp.BT, vDateFromJSON, vDateToJSON));
             }
             this.getView().byId("respTab").getBinding("items").filter(aFilterArray);
-        }  
+        },
+        onSalesOrderDetail(oEvent){
+            const sPath = oEvent.getSource().getBindingContext("salesOrders").getPath();
+            const sEncodePath = window.encodeURIComponent(sPath);
+
+            this.getOwnerComponent().getRouter().navTo("RouteSalesOrderDetail", {SalesOrderPath: sEncodePath})
+        }
     })
 });

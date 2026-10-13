@@ -1,0 +1,109 @@
+<mvc:View 
+    controllerName="fiori.y2026.sapfioritraining2026.controller.SalesOrderDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    core:require="{
+        Formatter: 'fiori/y2026/sapfioritraining2026/model/formatter',
+        Currency: 'sap/ui/model/type/Currency'
+    }">
+    <Page id="pageSalesOrderDetail" title="{ parts:['i18n>detail.pageTitle', 'salesOrders>SalesOrder'],
+                                             formatter:'jQuery.sap.formatMessage'}">
+        <footer>
+            <OverflowToolbar id="sOrdDetFooterToolBar">
+                <Button id="sOrdDetBackButton" press=".onBackButton" type="Back" text="{i18n>detail.backButton}"></Button>
+            </OverflowToolbar>
+        </footer>                                             
+        <form:SimpleForm id="salesOrderDetailGeneralInfoForm"
+            editable="false"
+            layout="ColumnLayout"
+            title="{i18n>detail.generalInfo.title}"
+            columnsXL="2"
+            columnsL="2"
+            columnsM="1">
+            <form:content>
+                <Label id="salesOrderDetailSalesOrderLabel"
+                    text="{i18n>detail.generalInfo.salesOrderLabel}"/>
+                <Text id="salesOrderDetailSalesOrderText"
+                    text="{salesOrders>SalesOrder}"/>
+
+                <Label id="salesOrderDetailSalesOrderTypeLabel"
+                    text="{i18n>detail.generalInfo.salesOrderTypeLabel}"/>
+                <Text id="salesOrderDetailSalesOrderTypeText"
+                    text="{salesOrders>SalesOrderType}"/>
+
+                <Label id="salesOrderDetailSoldToPartyLabel"
+                    text="{i18n>detail.generalInfo.soldToPartyLabel}"/>
+                <Text id="salesOrderDetailSoldToPartyText"
+                    text="{salesOrders>SoldToParty}"/>
+
+                <Label id="salesOrderDetailPurchaseOrderLabel"
+                    text="{i18n>detail.generalInfo.purchaseOrderLabel}"/>
+                <Text id="salesOrderDetailPurchaseOrderText"
+                    text="{salesOrders>PurchaseOrderByCustomer}"/>
+
+                <Label id="salesOrderDetailCreatedByLabel"
+                    text="{i18n>detail.generalInfo.createdByLabel}"/>
+                <Text id="salesOrderDetailCreatedByText"
+                    text="{salesOrders>CreatedByUser}"/>
+
+                <Label id="salesOrderDetailSalesOrgLabel"
+                    text="{i18n>detail.generalInfo.salesOrgLabel}"/>
+                <Text id="salesOrderDetailSalesOrgText"
+                    text="{salesOrders>SalesOrganization}"/>
+
+                <Label id="salesOrderDetailTotalNetAmountLabel"
+                    text="{i18n>detail.generalInfo.totalNetAmountLabel}"/>
+                <Text id="salesOrderDetailTotalNetAmountText"
+                    text="{
+                        parts: [
+                            'salesOrders>TotalNetAmount',
+                            'salesOrders>TransactionCurrency'
+                        ],
+                        type: 'sap.ui.model.type.Currency'
+                    }"/>
+            </form:content>
+        </form:SimpleForm>
+
+        <form:SimpleForm id="salesOrderDetailDeliveryInfoForm"
+            editable="false"
+            layout="ColumnLayout"
+            title="{i18n>detail.deliveryInfo.title}"
+            columnsXL="2"
+            columnsL="2"
+            columnsM="1">
+            <form:content>
+                <Label id="salesOrderDetailDeliveryStatusLabel"
+                    text="{i18n>detail.deliveryInfo.deliveryStatusLabel}"/>
+                <Text id="salesOrderDetailDeliveryStatusText"
+                    text="{
+                        path: 'salesOrders>OverallDeliveryStatus',
+                        formatter: 'Formatter.overallDeliveryStatusText.bind($controller)'
+                    }"/>
+
+                <Label id="salesOrderDetailContactPersonLabel"
+                    text="{i18n>detail.deliveryInfo.contactPersonLabel}"/>
+                <Text id="salesOrderDetailContactPersonText"
+                    text="{salesOrders>SlsDocSo2PLastContactPersnName}"/>
+
+                <Label id="salesOrderDetailIncotermsLabel"
+                    text="{i18n>detail.deliveryInfo.incotermsLabel}"/>
+                <Text id="salesOrderDetailIncotermsText"
+                    text="{salesOrders>IncotermsClassification} {salesOrders>IncotermsLocation1}"/>
+            </form:content>
+        </form:SimpleForm>
+        <Button id="SOItemDebug" text="Debug" press=".onDebug"></Button>
+        <Table id="SOItemTab" items="{salesOrders>to_Item/}" headerText="{ parts:['i18n>detail.table.headerText', 'salesOrders>SalesOrder'], 
+                                                                                 formatter:'jQuery.sap.formatMessage'}" >
+            <columns>
+                <Column id="colSOItem" width="10%"><Label id="colSOItemLabel" text="{i18n>detail.table.SOItem}"></Label></Column>
+            </columns>
+            <items>
+                <ColumnListItem id="colSOItemData" navigated="true" type="Navigation" press=".onItemSelect">
+                    <Text id="SOItemId" text="{salesOrders>SalesOrderItem}" ></Text>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>
