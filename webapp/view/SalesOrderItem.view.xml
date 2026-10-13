@@ -2,7 +2,10 @@
     controllerName="fiori.y2026.sapfioritraining2026.controller.SalesOrderItem"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:form="sap.ui.layout.form">
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    core:require="{
+        Formatter: 'fiori/y2026/sapfioritraining2026/model/formatter'}">
     <Page id="pageSalesOrderItem" title="{ parts:['i18n>item.pageTitle', 'salesOrders>SalesOrder', 'salesOrders>SalesOrderItem'],
                                              formatter:'jQuery.sap.formatMessage'}">
         <footer>
@@ -26,17 +29,34 @@
                     text="{i18n>item.salesOrderItem}"/>
                 <Text id="SOItemSalesOrderItemText"
                     text="{salesOrders>SalesOrderItem}"/>
+                <Label id="SOItemCreationDateL" text="{i18n>item.PricingDate}"/>
+                <Text id="SOItemCreationDate" 
+                    text="{path:'salesOrders>PricingDate',
+                        formatter:'Formatter.formatDate'
+                }"/>
+                <Label id="SOItemDelStatusL" text="{i18n>detail.deliveryInfo.deliveryStatusLabel}"/>
+                <Text id="SOItemDelStatus" 
+                    text="{path:'salesOrders>DeliveryStatus',
+                        formatter:'Formatter.overallDeliveryStatusText'}"/>
             </form:content>
         </form:SimpleForm>
 
-        <form:SimpleForm id="SOItemDeliveryInfoForm"
+        <form:SimpleForm id="SOItemMaterial"
             editable="false"
             layout="ColumnLayout"
-            title="{i18n>detail.deliveryInfo.title}"
+            title="{i18n>item.Material.title}"
             columnsXL="2"
             columnsL="2"
             columnsM="1">
             <form:content>
+               <Label id="SOItemMaterialLabel"
+                    text="{i18n>detail.table.Mat}"/>
+                <Text id="SOItemMaterialText"
+                    text="{salesOrders>Material}"/>
+               <Label id="SOItemDescrLabel"
+                    text="{i18n>detail.table.Tx}"/>
+                <Text id="SOItemDescrText"
+                    text="{salesOrders>SalesOrderItemText}"/>
             </form:content>
         </form:SimpleForm>
     </Page>
