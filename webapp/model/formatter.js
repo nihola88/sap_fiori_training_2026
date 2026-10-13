@@ -41,6 +41,26 @@ sap.ui.define([
                 return sap.ui.core.format.DateFormat
                     .getDateInstance({ pattern: "dd/MM/yyyy" })
                     .format(oDate);
+            },
+            formatNumber(vStringNumb){
+                if(!vStringNumb) return;
+
+                if(vStringNumb > 100) {
+                    return library.ValueState.Success;
+                }
+                else {
+                    return library.ValueState.Error;
+                }
+            },
+            formatCurrency(vAmount, vCurr){
+                if(!vAmount) return;
+
+                if(vAmount > 1000) {
+                    return library.ValueState.Success;
+                }
+                else {
+                    return library.ValueState.Error;
+                }  
             }
         }
     }

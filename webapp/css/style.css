@@ -2,3 +2,6 @@
 .sapUiResponsiveMargin {
     padding-top: 100px;
 }
+.sapUiVerySmallMargin{
+    padding: 1px;
+}

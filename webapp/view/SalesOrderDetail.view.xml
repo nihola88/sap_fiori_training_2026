@@ -6,7 +6,8 @@
     xmlns:core="sap.ui.core"
     core:require="{
         Formatter: 'fiori/y2026/sapfioritraining2026/model/formatter',
-        Currency: 'sap/ui/model/type/Currency'
+        Currency: 'sap/ui/model/type/Currency',
+        Integer: 'sap/ui/model/type/Integer'
     }">
     <Page id="pageSalesOrderDetail" title="{ parts:['i18n>detail.pageTitle', 'salesOrders>SalesOrder'],
                                              formatter:'jQuery.sap.formatMessage'}">
@@ -76,10 +77,13 @@
             <form:content>
                 <Label id="salesOrderDetailDeliveryStatusLabel"
                     text="{i18n>detail.deliveryInfo.deliveryStatusLabel}"/>
-                <Text id="salesOrderDetailDeliveryStatusText"
+                <ObjectStatus id="salesOrderDetailDeliveryStatusText"
                     text="{
                         path: 'salesOrders>OverallDeliveryStatus',
                         formatter: 'Formatter.overallDeliveryStatusText.bind($controller)'
+                    }"
+                    state="{ path: 'salesOrders>OverallDeliveryStatus',
+                             formatter: 'Formatter.overallDeliveryStatusText.bind($controller)'
                     }"/>
 
                 <Label id="salesOrderDetailContactPersonLabel"
@@ -98,10 +102,27 @@
                                                                                  formatter:'jQuery.sap.formatMessage'}" >
             <columns>
                 <Column id="colSOItem" width="10%"><Label id="colSOItemLabel" text="{i18n>detail.table.SOItem}"></Label></Column>
+                <Column id="colSOMat" width="10%"><Label id="colSOMatLabel" text="{i18n>detail.table.Mat}" textAlign="Center" design="Bold"></Label></Column>
+                <Column id="colSOTx" width="30%"><Label id="colSOTxLabel" text="{i18n>detail.table.Tx}" textAlign="Center"></Label></Column>
+                <Column id="colSOQuan" width="10%"><Label id="colSOQuanLabel" text="{i18n>detail.table.SOQuant}" textAlign="Center"></Label></Column>
+                <Column id="colSONetAm" width="20%"><core:Icon id="colSONetAmIcon" src="sap-icon://money-bills"/><Label id="colSONetAmLabel" text="{i18n>detail.table.NetAm}" textAlign="Center"></Label></Column>
             </columns>
             <items>
-                <ColumnListItem id="colSOItemData" navigated="true" type="Navigation" press=".onItemSelect">
+                <ColumnListItem id="colSOItemData" navigated="true" type="Navigation" press=".onItemSelect" >
                     <Text id="SOItemId" text="{salesOrders>SalesOrderItem}" ></Text>
+                    <Text id="SOItemMat" text="{salesOrders>Material}" ></Text>
+                    <Text id="SOItemTx" text="{salesOrders>SalesOrderItemText}"></Text>
+                    <VBox id="SOItemQuanVBox" alignItems="Center" class="sapUiVerySmallMargin">
+                        <ObjectStatus id="SOItemQuan" text="{salesOrders>RequestedQuantity}" 
+                                    state="{ parts:['salesOrders>RequestedQuantity'], 
+                                    formatter:'Formatter.formatNumber.bind($controller)'}" />
+                        <Label id="SOItemQuanL" text="{salesOrders>RequestedQuantityISOUnit}" textAlign="Center" labelFor="SOItemQuan" ></Label>
+                    </VBox>
+                <ObjectStatus id="objNetAmount"
+                    text="{parts:['salesOrders>NetAmount',
+                                  'salesOrders>TransactionCurrency']}"
+                    state="{ parts:['salesOrders>NetAmount',
+                                  'salesOrders>TransactionCurrency'], formatter:'Formatter.formatCurrency'}"/>                    
                 </ColumnListItem>
             </items>
         </Table>
