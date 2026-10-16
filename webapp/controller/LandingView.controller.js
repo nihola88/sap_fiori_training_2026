@@ -232,6 +232,12 @@ sap.ui.define([
                 
                 aFilterArray.push(new Filter("SalesOrderDate", FilterOp.BT, vDateFromJSON, vDateToJSON));
             }
+
+            const vSalesOrg = this.byId("salesOrgFiltInput").getValue();
+            if(vSalesOrg){
+                aFilterArray.push( new Filter("SalesOrganization", FilterOp.EQ, vSalesOrg));
+            }
+
             this.getView().byId("respTab").getBinding("items").filter(aFilterArray);
         },
         onSalesOrderDetail(oEvent){
@@ -240,7 +246,7 @@ sap.ui.define([
 
             this.getOwnerComponent().getRouter().navTo("RouteSalesOrderDetail", {SalesOrderPath: sEncodePath})
         },
-        async ondivisionFiltVHReq(oEvent){
+        async onSalesOrgFiltVHReq(oEvent){
             if(!this._oDivFiltSelectDialog){
                 this._oDivFiltSelectDialog = await this.loadFragment({ name: "fiori.y2026.sapfioritraining2026.view.fragments.DivFiltSelDialog"});
                 this._oDivFiltSelectDialog.addEventDelegate({
@@ -251,15 +257,12 @@ sap.ui.define([
                 }, this, mb);
             }
 
-            this.getView().getModel("divisions").read("/",{
-                success:(oData)=>{
-                    this._oDivFiltSelectDialog?.open();
-                },
-                error:(error)=>{
-                    debugger;
-                }
-            })
+            this._oDivFiltSelectDialog?.open();
             
+        },
+        onSelectSalesOrg(oEvent){
+            const vSalesOrg = oEvent.getParameter("selectedItem").getDescription();
+            this.byId("salesOrgFiltInput").setValue(vSalesOrg);
         }
     })
 });

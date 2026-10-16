@@ -39,6 +39,12 @@ server:
           - path: /sap/opu/odata/sap/API_DIVISION_SRV
             url: http://10.0.98.20:8017
             client: '050'
+          - path: /sap/opu/odata/sap/API_PLANT_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_SALESORGANIZATION_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:
@@ -48,9 +54,15 @@ server:
             metadataPath: ./webapp/localService/mainService/metadata.xml
             mockdataPath: ./webapp/localService/mainService/data
             generateMockData: true
+          - urlPath: /sap/opu/odata/sap/API_SALESORGANIZATION_SRV
+            metadataPath: ./webapp/localService/API_SALESORGANIZATION_SRV/metadata.xml
+            mockdataPath: ./webapp/localService/API_SALESORGANIZATION_SRV/data
+            generateMockData: true
         annotations:
           - localPath: ./webapp/localService/mainService/API_SALES_ORDER_ANNO_MDL.xml
             urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_SALES_ORDER_ANNO_MDL',Version='0001')/$value/
+          - localPath: ./webapp/localService/API_SALESORGANIZATION_SRV/API_SALESORGANIZATION_ANNO_MDL.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_SALESORGANIZATION_ANNO_MDL',Version='0001')/$value/
 builder:
   resources:
     excludes:

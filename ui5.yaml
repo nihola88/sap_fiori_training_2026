@@ -25,6 +25,12 @@ server:
           - path: /sap/opu/odata/sap/API_DIVISION_SRV
             url: http://10.0.98.20:8017
             client: '050'
+          - path: /sap/opu/odata/sap/API_PLANT_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_SALESORGANIZATION_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

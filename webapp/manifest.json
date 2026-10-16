@@ -50,6 +50,24 @@
           "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "API_SALESORGANIZATION_ANNO_MDL": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_SALESORGANIZATION_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/API_SALESORGANIZATION_SRV/API_SALESORGANIZATION_ANNO_MDL.xml"
+        }
+      },
+      "API_SALESORGANIZATION_SRV": {
+        "uri": "/sap/opu/odata/sap/API_SALESORGANIZATION_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "API_SALESORGANIZATION_ANNO_MDL"
+          ],
+          "localUri": "localService/API_SALESORGANIZATION_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
       }
     }
   },
@@ -95,6 +113,11 @@
       },
       "salesOrders": {
         "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "salesOrgs": {
+        "dataSource": "API_SALESORGANIZATION_SRV",
         "preload": true,
         "settings": {}
       }

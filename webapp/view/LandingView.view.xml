@@ -156,9 +156,9 @@
                             showCurrentDateButton="true" showFooter="true" change=".handleDatePickChange"/>
                     </fb:control>
                 </fb:FilterGroupItem>
-                <fb:FilterGroupItem id="divisionFilt" name="Division" groupName="Group1" visibleInFilterBar="true" >
+                <fb:FilterGroupItem id="salesOrgFilt" label="Sales Organization" name="salesOrg" groupName="Group1" visibleInFilterBar="true" >
                     <fb:control>
-                        <Input id="divisionFiltInput" width="20rem" showValueHelp="true" valueHelpRequest=".ondivisionFiltVHReq" placeholder="Division" valueLiveUpdate="true"
+                        <Input id="salesOrgFiltInput" width="20rem" showValueHelp="true" valueHelpRequest=".onSalesOrgFiltVHReq" placeholder="Sales Organization" valueLiveUpdate="true"
                             ></Input>
                     </fb:control>
                 </fb:FilterGroupItem>
