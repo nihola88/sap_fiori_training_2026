@@ -1,13 +1,17 @@
 <core:FragmentDefinition id="salesOrgFiltFragment" xmlns="sap.m" xmlns:core="sap.ui.core">
     <SelectDialog id="VHSalesOrg" initialFocus="List" noDataText="No Sales Organizations!" title="Select Division"
-        items="{path: 'salesOrgs>/A_SalesOrganization', parameters: {expand:'to_Text'}}"  confirm=".onSelectSalesOrg"
-        multiSelect="true"
+        
+        items="{LocSalesOrg>/}"
+        confirm=".onSelectSalesOrg" growingThreshold="200"
+        multiSelect="true" search=".onSearchFiltSalesOrg"  liveChange=".onSearchFiltSalesOrg"
     >
+        <!--items="{path: 'salesOrgs>/A_SalesOrganizationText', -->
+        <!--items="{path: 'salesOrgs>/A_SalesOrganization', parameters: {expand:'to_Text'}}"-->
     <items>
         <StandardListItem 
             id="VHSalesOrgList" 
-            description="{salesOrgs>SalesOrganization}"
-            title="{path:'salesOrgs>SalesOrganization',
+            description="{LocSalesOrg>SalesOrganization}"
+            title="{parts:['LocSalesOrg>SalesOrganization', 'LocSalesOrg>SalesOrganizationName'],
                     formatter:'.formatter.manageSalesOrg'
             }"
             iconInset="false"

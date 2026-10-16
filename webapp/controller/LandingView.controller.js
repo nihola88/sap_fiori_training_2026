@@ -211,6 +211,7 @@ sap.ui.define([
 
         },
         onSearchFilterBar(oEvent){
+            //createdBy
             let selItems = this.getView().byId("comboBox1").getSelectedItems();
             let aCreatedBySelected = selItems.map((item)=> { 
                 return new Filter("CreatedByUser", FilterOp.Contains, item.getKey())}
@@ -222,6 +223,7 @@ sap.ui.define([
                 aFilterArray.push( new Filter( aCreatedBySelected, false ) );
             }
 
+            //CreationDate
             let oDateRangeFilter =  this.getView().byId("dateRangeFilter");
             let vDateFrom = oDateRangeFilter.getDateValue();
             let vDateTo   = oDateRangeFilter.getSecondDateValue();
@@ -229,12 +231,13 @@ sap.ui.define([
                 
                 vDateTo = vDateTo || new Date(vDateFrom);
                 vDateTo.setHours(23,59,59,999);
-                let vDateFromJSON = `/Date(${vDateFrom?.getTime()})/`;
-                let vDateToJSON = `/Date(${vDateTo?.getTime()})/`;
+                //let vDateFromJSON = `/Date(${vDateFrom?.getTime()})/`;
+                //let vDateToJSON = `/Date(${vDateTo?.getTime()})/`;
 
                 aFilterArray.push(new Filter("SalesOrderDate", FilterOp.BT, vDateFrom, vDateTo));
             }
 
+            //salesOrg
             const aSalesOrg = this.byId("salesOrgFiltInput").getValue();
             if(aSalesOrg){
                 let aSaledOrgFilt = aSalesOrg.split(",").map((sOrg)=> new Filter("SalesOrganization", FilterOp.EQ, sOrg));
@@ -267,6 +270,31 @@ sap.ui.define([
         onSelectSalesOrg(oEvent){
             const aMap = oEvent.getParameter("selectedItems").map((item)=> item.getDescription());
             this.byId("salesOrgFiltInput").setValue(aMap);
+        },
+        onSearchFiltSalesOrg(oEvent){
+            const vFilter = oEvent.getParameter("value");
+            /*
+            if(!this.salesOrgs){
+                this.salesOrgs = this.getView().getModel())
+            }
+
+           let aFilter = oEvent.getSource().getItems().filter(item=>{
+                return item.getProperty("title")?.includes(vFilter) ||
+               item.getProperty("description")?.includes(vFilter)
+           });
+           oEvent.getSource().getBinding("items").setData(aFilter);
+           
+           oEvent.getSource().getItems().forEach((item)=>{
+            item.getProperty("title")?.includes(vFilter) ||
+            item.getProperty("description")?.includes(vFilter) ? item.setVisible(true) : item.setVisible(false);
+        })
+        */
+        let aFilter = [ 
+            new Filter( "SalesOrganization", FilterOp.Contains, vFilter ),
+            new Filter( "SalesOrganizationName", FilterOp.Contains, vFilter )
+        ];
+            
+            oEvent.getSource().getBinding("items").filter(new Filter(aFilter, false));
         }
     })
 });

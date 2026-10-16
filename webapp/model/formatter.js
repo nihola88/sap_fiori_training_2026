@@ -62,7 +62,8 @@ sap.ui.define([
                     return library.ValueState.Error;
                 }  
             },
-            manageSalesOrg(sOrg){
+            manageSalesOrg(sOrg, sOrgText){
+                if(sOrgText) return sOrgText;
                 const sOrgModel = this.getView().getModel("salesOrgs");
                 const oSalesOrg = sOrgModel.getProperty(
                     `/A_SalesOrganization('${sOrg}')`
