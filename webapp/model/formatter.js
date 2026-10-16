@@ -61,6 +61,38 @@ sap.ui.define([
                 else {
                     return library.ValueState.Error;
                 }  
+            },
+            async manageSalesOrg(sOrg,sOrgTx){
+                if (sOrgTx) return sOrgTx;
+
+                const sOrgModel = this.getView().getModel("salesOrgs");
+                const oSalesOrg = sOrgModel.getProperty(
+                    `/A_SalesOrganization('${sOrg}')`
+                );
+
+                if (!oSalesOrg.to_Text.__list.length) {
+                    return sOrg;
+                }
+
+                const aTexts = oSalesOrg.to_Text.__list;
+                
+                let test = 
+                    sOrgModel.getProperty("/"+ aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "IT"))?.SalesOrganizationName ||
+                    sOrgModel.getProperty("/"+ aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "EN"))?.SalesOrganizationName ||
+                    sOrgModel.getProperty("/"+ aTexts[0])?.SalesOrganizationName ||
+                    sOrg;
+
+                return test;
+
+                /*if(aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "IT")){
+                    return sOrgModel.getProperty("/"+oText).SalesOrganizationName;
+                }else if(aTexts.find(oText => sOrgModel.getProperty(`/${oText}`).Language === "EN")){
+                    return sOrgModel.getProperty("/"+oText).SalesOrganizationName;
+                }else if (aTexts.length){
+                    return sOrgModel.getProperty("/"+aTexts[0]).SalesOrganizationName;
+                }else{
+                    return sOrg;
+                }*/
             }
         }
     }

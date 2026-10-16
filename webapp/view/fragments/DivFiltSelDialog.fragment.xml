@@ -1,12 +1,14 @@
 <core:FragmentDefinition id="divisionFiltFragment" xmlns="sap.m" xmlns:core="sap.ui.core">
-    <SelectDialog id="VHDivision" initialFocus="List" noDataText="No Divisions!" title="Select Division"
-        items="{salesOrgs>/A_SalesOrganization}"  confirm=".onSelectSalesOrg"
+    <SelectDialog id="VHSalesOrg" initialFocus="List" noDataText="No Sales Organizations!" title="Select Division"
+        items="{path: 'salesOrgs>/A_SalesOrganization', parameters: {expand:'to_Text'}}"  confirm=".onSelectSalesOrg"
     >
     <items>
         <StandardListItem 
-            id="VHDivisionList" 
-            description="{salesOrgs>_Text/SalesOrganizationName}"
-            title="{salesOrgs>SalesOrganization}"
+            id="VHSalesOrgList" 
+            description="{salesOrgs>SalesOrganization}"
+            title="{parts: ['salesOrgs>SalesOrganization', 'salesOrgs>to_Text/SalesOrganizationName'],
+                    formatter:'.formatter.manageSalesOrg'
+            }"
             iconInset="false"
             type="Active"
         />

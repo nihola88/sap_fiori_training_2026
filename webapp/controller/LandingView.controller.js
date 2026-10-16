@@ -4,13 +4,15 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
     "fiori/y2026/sapfioritraining2026/model/models",
+    "fiori/y2026/sapfioritraining2026/model/formatter",
     "fiori/y2026/sapfioritraining2026/model/utils",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator"
-], (Controller,mt, mb, JSONModel, models, utils, Filter, FilterOp) => {
+], (Controller,mt, mb, JSONModel, models, formatter, utils, Filter, FilterOp) => {
     "use strict";
 
     return Controller.extend("fiori.y2026.sapfioritraining2026.controller.LandingView", {
+        formatter,
         onInit() {
             this._initializeBindingsDemoModel();
         },
@@ -229,8 +231,8 @@ sap.ui.define([
                 vDateTo.setHours(23,59,59,999);
                 let vDateFromJSON = `/Date(${vDateFrom?.getTime()})/`;
                 let vDateToJSON = `/Date(${vDateTo?.getTime()})/`;
-                
-                aFilterArray.push(new Filter("SalesOrderDate", FilterOp.BT, vDateFromJSON, vDateToJSON));
+
+                aFilterArray.push(new Filter("SalesOrderDate", FilterOp.BT, vDateFrom, vDateTo));
             }
 
             const vSalesOrg = this.byId("salesOrgFiltInput").getValue();

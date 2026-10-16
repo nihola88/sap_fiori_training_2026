@@ -180,8 +180,8 @@
                         <Text id="SOTypT" text="{salesOrders>SalesOrderType}"></Text>
                         <Text id="SODatT" text="{path:'salesOrders>SalesOrderDate',
                                                  type:'sap.ui.model.odata.type.Date',
-                                                 formatter:'Formatter.formatDate.bind($controller)',
-                                                 formatOptions:{pattern: 'dd/mm/yyyy'}}"></Text>
+                                                 formatOptions:{pattern: 'dd/MM/yyyy'}}"></Text>
+                                                 <!-- formatter:'Formatter.formatDate.bind($controller)',-->
                         <Text id="SOSOrgT" text="{salesOrders>SalesOrganization}"></Text>
                         <Text id="CreatedByUserT" text="{salesOrders>CreatedByUser}"></Text>
                     </ColumnListItem>
