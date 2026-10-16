@@ -62,38 +62,25 @@ sap.ui.define([
                     return library.ValueState.Error;
                 }  
             },
-            async manageSalesOrg(sOrg,sOrgTx){
-                if (sOrgTx) return sOrgTx;
-
+            manageSalesOrg(sOrg){
                 const sOrgModel = this.getView().getModel("salesOrgs");
                 const oSalesOrg = sOrgModel.getProperty(
                     `/A_SalesOrganization('${sOrg}')`
                 );
 
-                if (!oSalesOrg.to_Text.__list.length) {
+                const aTexts = oSalesOrg?.to_Text?.__list;
+                if (!aTexts?.length) {
                     return sOrg;
                 }
 
-                const aTexts = oSalesOrg.to_Text.__list;
-                
-                let test = 
-                    sOrgModel.getProperty("/"+ aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "IT"))?.SalesOrganizationName ||
-                    sOrgModel.getProperty("/"+ aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "EN"))?.SalesOrganizationName ||
-                    sOrgModel.getProperty("/"+ aTexts[0])?.SalesOrganizationName ||
-                    sOrg;
+                let sKey = 
+                    aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "IT") ||
+                    aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "EN") ||
+                    aTexts[0];
 
-                return test;
+                return sOrgModel.getProperty("/"+ sKey)?.SalesOrganizationName || sOrg;
 
-                /*if(aTexts.find(oText => sOrgModel.getProperty("/"+oText).Language === "IT")){
-                    return sOrgModel.getProperty("/"+oText).SalesOrganizationName;
-                }else if(aTexts.find(oText => sOrgModel.getProperty(`/${oText}`).Language === "EN")){
-                    return sOrgModel.getProperty("/"+oText).SalesOrganizationName;
-                }else if (aTexts.length){
-                    return sOrgModel.getProperty("/"+aTexts[0]).SalesOrganizationName;
-                }else{
-                    return sOrg;
-                }*/
-            }
+          }
         }
     }
 

@@ -235,9 +235,11 @@ sap.ui.define([
                 aFilterArray.push(new Filter("SalesOrderDate", FilterOp.BT, vDateFrom, vDateTo));
             }
 
-            const vSalesOrg = this.byId("salesOrgFiltInput").getValue();
-            if(vSalesOrg){
-                aFilterArray.push( new Filter("SalesOrganization", FilterOp.EQ, vSalesOrg));
+            const aSalesOrg = this.byId("salesOrgFiltInput").getValue();
+            if(aSalesOrg){
+                let aSaledOrgFilt = aSalesOrg.split(",").map((sOrg)=> new Filter("SalesOrganization", FilterOp.EQ, sOrg));
+
+                aFilterArray.push( new Filter(aSaledOrgFilt, false ));
             }
 
             this.getView().byId("respTab").getBinding("items").filter(aFilterArray);
@@ -250,7 +252,7 @@ sap.ui.define([
         },
         async onSalesOrgFiltVHReq(oEvent){
             if(!this._oDivFiltSelectDialog){
-                this._oDivFiltSelectDialog = await this.loadFragment({ name: "fiori.y2026.sapfioritraining2026.view.fragments.DivFiltSelDialog"});
+                this._oDivFiltSelectDialog = await this.loadFragment({ name: "fiori.y2026.sapfioritraining2026.view.fragments.SalesOrgFiltSelDialog"});
                 this._oDivFiltSelectDialog.addEventDelegate({
                     onkeydown: function(oEvent){
 /*                        if (oEvent.key === 'Enter'){
@@ -263,8 +265,8 @@ sap.ui.define([
             
         },
         onSelectSalesOrg(oEvent){
-            const vSalesOrg = oEvent.getParameter("selectedItem").getDescription();
-            this.byId("salesOrgFiltInput").setValue(vSalesOrg);
+            const aMap = oEvent.getParameter("selectedItems").map((item)=> item.getDescription());
+            this.byId("salesOrgFiltInput").setValue(aMap);
         }
     })
 });

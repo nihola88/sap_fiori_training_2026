@@ -1,12 +1,13 @@
-<core:FragmentDefinition id="divisionFiltFragment" xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition id="salesOrgFiltFragment" xmlns="sap.m" xmlns:core="sap.ui.core">
     <SelectDialog id="VHSalesOrg" initialFocus="List" noDataText="No Sales Organizations!" title="Select Division"
         items="{path: 'salesOrgs>/A_SalesOrganization', parameters: {expand:'to_Text'}}"  confirm=".onSelectSalesOrg"
+        multiSelect="true"
     >
     <items>
         <StandardListItem 
             id="VHSalesOrgList" 
             description="{salesOrgs>SalesOrganization}"
-            title="{parts: ['salesOrgs>SalesOrganization', 'salesOrgs>to_Text/SalesOrganizationName'],
+            title="{path:'salesOrgs>SalesOrganization',
                     formatter:'.formatter.manageSalesOrg'
             }"
             iconInset="false"
