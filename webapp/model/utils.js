@@ -6,27 +6,34 @@ function (JSONModel) {
     return{
         _initializeGlobal(that){
             that.oComponent = this.oComponent = that.getView().getController().getOwnerComponent();
-            let aSOrders = that.oComponent.getModel("salesOrders").getProperty("/A_SalesOrder");
             let aCreatedBy = [];
-            aSOrders.forEach( (so) => {
-                let vCreatedBy = so.CreatedByUser;
-                let vFind = aCreatedBy.find( (names)=>names.name === vCreatedBy )
-                if(!vFind) aCreatedBy.push({name: vCreatedBy}) ;
-            });
-            aCreatedBy.sort((a,b)=>{   
-                if(a.name > b.name){
-                    return 1;
-                }else if(a.name < b.name){
-                    return - 1;
-                }else{
-                    return 0;
-                }
+            that.getView().setModel(new JSONModel({}), "filterbarModel");
+            /*
+            that.oComponent.getModel("salesOrders").read("/A_SalesOrder",{
+                success:(oData)=>{
+                    oData.results.forEach( (so) => {
+                        let vCreatedBy = so.CreatedByUser;
+                        let vFind = aCreatedBy.find( (names)=>names.name === vCreatedBy )
+                        if(!vFind) aCreatedBy.push({name: vCreatedBy}) ;
+                        aCreatedBy.sort((a,b)=>{   
+                            if(a.name > b.name){
+                                return 1;
+                            }else if(a.name < b.name){
+                                return - 1;
+                            }else{
+                                return 0;
+                            }
+                            });
+                    let filterbarModel = {
+                        createdBy: aCreatedBy
+                    };
+                    that.getView().setModel(new JSONModel(filterbarModel), "filterbarModel");
+                });
 
+                }
             });
-            let filterbarModel = {
-                createdBy: aCreatedBy
-            };
-            that.getView().setModel(new JSONModel(filterbarModel), "filterbarModel");
+            */
+
             that.oRouter = that.getOwnerComponent().getRouter();
 
         },

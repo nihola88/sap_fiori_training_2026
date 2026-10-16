@@ -13,6 +13,8 @@ sap.ui.define([
     return Controller.extend("fiori.y2026.sapfioritraining2026.controller.LandingView", {
         onInit() {
             this._initializeBindingsDemoModel();
+        },
+        onBeforeRendering(){
             utils._initializeGlobal(this);
         },
         _initializeBindingsDemoModel(){
@@ -237,6 +239,18 @@ sap.ui.define([
             const sEncodePath = window.encodeURIComponent(sPath);
 
             this.getOwnerComponent().getRouter().navTo("RouteSalesOrderDetail", {SalesOrderPath: sEncodePath})
+        },
+        async ondivisionFiltVHReq(oEvent){
+            if(!this._oDivFiltSelectDialog){
+                this._oDivFiltSelectDialog = await this.loadFragment({ name: "fiori.y2026.sapfioritraining2026.view.fragments.DivFiltSelDialog"});
+                this._oDivFiltSelectDialog.addEventDelegate({
+                    onkeydown: function(oEvent){
+/*                        if (oEvent.key === 'Enter'){
+                        }*/
+                    }
+                }, this, mb);
+            }
+            this._oDivFiltSelectDialog?.open();
         }
     })
 });

@@ -1,4 +1,4 @@
-<mvc:View xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt" 
+<mvc:View xmlns:webc="sap.ui.core.webc" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt" 
     controllerName="fiori.y2026.sapfioritraining2026.controller.LandingView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
@@ -94,6 +94,9 @@
     <Panel id="listPanel" expandable="true" expanded="false" headerText="{i18n>listPanel.header}">
         <List id="salesOrderList" items="{salesOrders>/A_SalesOrder}" 
              headerText="{i18n>listPanel.headerText}"
+             growing="true"
+             growingThreshold="20"
+             width="auto"
             >
             <headerToolbar>
                 <OverflowToolbar id="salesOrdersToolbar" class="sapUiSmallMargin" height="auto">
@@ -139,7 +142,8 @@
             <fb:filterGroupItems> 
                 <fb:FilterGroupItem id="filter1" name="CreatedBy" label="Created By" groupName="Group1" visibleInFilterBar="true">
                     <fb:control>
-                        <MultiComboBox id="comboBox1" name="CreatedBy" items="{filterbarModel>/createdBy}" selectionChange=".onSelectionChange">
+                        <MultiComboBox id="comboBox1" name="CreatedBy" items="{filterbarModel>/createdBy}" selectionChange=".onSelectionChange" showClearIcon="true"
+                            showSelectAll="true" >
                             <items>
                                 <core:Item id="cb1Item" key="{filterbarModel>name}" text="{filterbarModel>name}"></core:Item>
                             </items>
@@ -152,9 +156,14 @@
                             showCurrentDateButton="true" showFooter="true" change=".handleDatePickChange"/>
                     </fb:control>
                 </fb:FilterGroupItem>
+                <fb:FilterGroupItem id="divisionFilt" name="Division" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <Input id="divisionFiltInput" width="20rem" showValueHelp="true" valueHelpRequest=".ondivisionFiltVHReq" placeholder="Division"></Input>
+                    </fb:control>
+                </fb:FilterGroupItem>
            </fb:filterGroupItems>
         </fb:FilterBar>
-            <Table id="respTab" items="{salesOrders>/A_SalesOrder}">
+            <Table id="respTab" items="{salesOrders>/A_SalesOrder}" growing="true">
                 <columns>
                     <Column id="salesOrdC" width="10%"><Label id="salesOrdLabel" text="{i18n>respTabCol.salesOrd}"></Label></Column>
                     <Column id="SOTypC" width="10%"><Label id="SOTypLabel" text="{i18n>respTabCol.SOTyp}"></Label></Column>

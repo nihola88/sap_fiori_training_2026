@@ -9,12 +9,22 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertErrors: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertErrors: false
         ui5:
           path:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+        backend:
+          - path: /sap/opu/odata/sap/API_SALES_ORDER_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_COMPANYCODE_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_DIVISION_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

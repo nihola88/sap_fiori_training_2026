@@ -28,7 +28,35 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertErrors: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertErrors: false
+        backend:
+          - path: /sap/opu/odata/sap/API_SALES_ORDER_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_COMPANYCODE_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_DIVISION_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/sap/API_SALES_ORDER_SRV
+            metadataPath: ./webapp/localService/mainService/metadata.xml
+            mockdataPath: ./webapp/localService/mainService/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/API_DIVISION_SRV
+            metadataPath: ./webapp/localService/API_DIVISION_SRV/metadata.xml
+            mockdataPath: ./webapp/localService/API_DIVISION_SRV/data
+            generateMockData: true
+        annotations:
+          - localPath: ./webapp/localService/mainService/API_SALES_ORDER_ANNO_MDL.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_SALES_ORDER_ANNO_MDL',Version='0001')/$value/
+          - localPath: ./webapp/localService/API_DIVISION_SRV/API_DIVISION_ANNO_MDL.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_DIVISION_ANNO_MDL',Version='0001')/$value/
 builder:
   resources:
     excludes:

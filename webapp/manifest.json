@@ -4,7 +4,7 @@
     "id": "fiori.y2026.sapfioritraining2026",
     "type": "application",
     "i18n": "i18n/i18n.properties",
-    "info":"{{tileTitle}}",
+    "info": "{{tileTitle}}",
     "shortTitle": "testManifest",
     "subTitle": "{{tileTitle}}",
     "applicationVersion": {
@@ -29,6 +29,44 @@
             "parameters": {},
             "additionalParameters": "allowed"
           }
+        }
+      }
+    },
+    "dataSources": {
+      "API_SALES_ORDER_ANNO_MDL": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_SALES_ORDER_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/mainService/API_SALES_ORDER_ANNO_MDL.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/API_SALES_ORDER_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "API_SALES_ORDER_ANNO_MDL"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "API_DIVISION_ANNO_MDL": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_DIVISION_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/API_DIVISION_SRV/API_DIVISION_ANNO_MDL.xml"
+        }
+      },
+      "API_DIVISION_SRV": {
+        "uri": "/sap/opu/odata/sap/API_DIVISION_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "API_DIVISION_ANNO_MDL"
+          ],
+          "localUri": "localService/API_DIVISION_SRV/metadata.xml",
+          "odataVersion": "2.0"
         }
       }
     }
@@ -69,9 +107,19 @@
           "bundleName": "fiori.y2026.sapfioritraining2026.i18n.i18n"
         }
       },
-      "salesOrders":{
+      "salesOrders_old": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/2-salesOrders.json"
+      },
+      "salesOrders": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "divisions": {
+        "dataSource": "API_DIVISION_SRV",
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {
