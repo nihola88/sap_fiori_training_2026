@@ -250,7 +250,16 @@ sap.ui.define([
                     }
                 }, this, mb);
             }
-            this._oDivFiltSelectDialog?.open();
+
+            this.getView().getModel("divisions").read("/",{
+                success:(oData)=>{
+                    this._oDivFiltSelectDialog?.open();
+                },
+                error:(error)=>{
+                    debugger;
+                }
+            })
+            
         }
     })
 });

@@ -1,6 +1,6 @@
 <core:FragmentDefinition id="divisionFiltFragment" xmlns="sap.m" xmlns:core="sap.ui.core">
     <SelectDialog id="VHDivision" initialFocus="SearchField" noDataText="No Divisions!" title="Select Division"
-        items="{divisions>/}"
+        items="{divisions>}"
     >
     <items>
         <StandardListItem 
