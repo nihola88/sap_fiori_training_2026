@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: fiori.y2026.sapfioritraining2026
+type: application
+framework:
+  name: SAPUI5
+  version: 1.152.0
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.ushell
+    - name: themelib_sap_horizon
+server:
+  customMiddleware:
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        flp:
+          theme: sap_horizon
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: false
+        backend:
+          - path: /sap/opu/odata/sap/API_SALES_ORDER_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_COMPANYCODE_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_DIVISION_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_PLANT_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+          - path: /sap/opu/odata/sap/API_SALESORGANIZATION_SRV
+            url: http://10.0.98.20:8017
+            client: '050'
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/sap/API_SALES_ORDER_SRV
+            metadataPath: ./webapp/localService/mainService/metadata.xml
+            mockdataPath: ./webapp/localService/mainService/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/API_SALESORGANIZATION_SRV
+            metadataPath: ./webapp/localService/API_SALESORGANIZATION_SRV/metadata.xml
+            mockdataPath: ./webapp/localService/API_SALESORGANIZATION_SRV/data
+            generateMockData: true
+        annotations:
+          - localPath: ./webapp/localService/mainService/API_SALES_ORDER_ANNO_MDL.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_SALES_ORDER_ANNO_MDL',Version='0001')/$value/
+          - localPath: ./webapp/localService/API_SALESORGANIZATION_SRV/API_SALESORGANIZATION_ANNO_MDL.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_SALESORGANIZATION_ANNO_MDL',Version='0001')/$value/
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
